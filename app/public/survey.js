@@ -34,33 +34,51 @@ const questions = [q1, q2, q3, q4, q5, q6, q7];
 function survey() {
     for (let i = 0; i < questions.length; i++) {
         let qArea = $("<div>");
-        let dropdown = $("<div>")
-            .addClass  ("dropdown");
-            dropdown.append(
-                $("<button>")
-            .addClass("btn btn-default dropdown-toggle")
-            .attr({"type" : "button", "id" : "question" + (i + 1), "data-toggle" : "dropdown", "aria-haspopup" : "true", "aria-expanded" : "true"})
-            .html(`Select an option... <span class="caret"></span></button>`));
-        let qHTML = $(`<p><h2> Question ${i + 1}
-                </h2></p>
-                <p><h3> ${questions[i].question}</h3></p>`);
-        let options = $("<ul>")
-            .addClass("dropdown-menu").attr({"aria-labelledby" : "question" + i});
+        let dropdown = $("<select required>")
+            .addClass("selection")
+            .attr({"id" : "question" + (i + 1)})
+            .html(`Select an option...`)
+            .append($(`<option value="">Select an Answer</option>`));
+        let qHTML = $(`<p><h3> Question ${i + 1}
+                </h3></p>
+                <p><h4> ${questions[i].question}</h4></p>`);
         let answers = questions[i].shuffle();
         answers.forEach(function(answer){
-            let li = $("<li>");
-            let a = $("<a>").attr({"data-value" : answer[1]}).html(answer[0]);
-            li.append(a);
-            options.append(li);
+            let options = $("<option>")
+            .addClass("dropdowns").attr({"value" : answer[1]}).html(answer[0]);
+            dropdown.append(options);
         })
     
 
         qArea.append(qHTML);
         qArea.append(dropdown);
-        dropdown.append(options);
         
         
         $(".questions").append(qArea);
     }
 }
 survey();
+
+$("#submit").on("click", function(event){
+    event.preventDefault();
+    const user = {
+        name : $("#name").val().trim(),
+        photo: $("#img").val().trim(),
+        scores : [
+            $("#question1").val().trim(),
+            $("#question2").val().trim(),
+            $("#question3").val().trim(),
+            $("#question4").val().trim(),
+            $("#question5").val().trim(),
+            $("#question6").val().trim(),
+            $("#question7").val().trim(),
+        ]
+    }
+
+    $.post('/api/friends', user, function(data){
+            $("#matchName").text(data.name);
+            $("#matchImg").attr("src", data.photo);
+            $("#results").modal("toggle");
+            console.log(data);
+        });
+})

@@ -5,3 +5,13 @@ footer{
     height: 60px;
     background-color: #f5f5f5;
 }
+
+.container{
+    margin-bottom: 20px;
+}
+
+#matchImg {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
