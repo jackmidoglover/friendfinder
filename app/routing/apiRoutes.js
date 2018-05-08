@@ -8,7 +8,7 @@ module.exports = function(app){
     });
     app.post('/api/friends', function(req, res){
         const user = req.body;
-        console.log("survey.html", user['scores[]']);
+        console.log("survey.html");
             console.log("saving user info...");
         const bestMatch = pairingAlg(user);
         console.log(pairingAlg(user));
@@ -18,17 +18,18 @@ module.exports = function(app){
     }
 
 // A formula to pair users with friends from the friends object by comparing
-//their scores
+    //their scores
     function pairingAlg(u) {
         let you = u['scores[]'];
         let friendlyScores = [];
         let difference = [];
         let totalDifference = [];
-
+        console.log("User score: " + you);
 // first populate friendly Scores with the arrays from each friend object
         friends.forEach(function(friend){
             friendlyScores.push(friend.scores);
         })
+        console.log("Friendly Scores: " + friendlyScores);
 
 // Loop through each array in friendlyScores, and subtract
         // the user's array of values from that individual array
@@ -36,6 +37,7 @@ module.exports = function(app){
         friendlyScores.forEach(function(score){
             getDifference(you, score);
         })
+        console.log("Arrays of values of difference: " + difference);
     
 // create a new array that contains the value of each aray's total sum
         // in difference, creating a single value, "total difference"
@@ -44,7 +46,7 @@ module.exports = function(app){
         x = difference[j].reduce((total, amount) => parseInt(total) + parseInt(amount));
         totalDifference.push(x);
         }
-    console.log(totalDifference);
+    console.log("Array of total difference values: " + totalDifference);
 
 // call indexofMin to determine the index of the smallest value in the total difference array
         //which by the merit of the other looping functions above,
@@ -52,6 +54,7 @@ module.exports = function(app){
         // when subtracted from the user's scores, returns the lowest value
     let minIndex = indexOfMin(totalDifference);
     return friends[minIndex];
+    console.log("Chosen friend: " + friends[minIndex]);
 
 
 

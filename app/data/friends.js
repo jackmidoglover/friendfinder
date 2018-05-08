@@ -1,7 +1,7 @@
 const friends = [
     {
         name: "Don Julio",
-        photo: "xx",
+        photo: "https://i.pinimg.com/564x/bf/20/57/bf20579f1b349a261fd382d24a016567.jpg",
         scores: [
             4,
             4,
@@ -14,7 +14,7 @@ const friends = [
     },
     {
         name : "Julia Roberts",
-        photo: "xx",
+        photo: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Julia_Roberts_2011_Shankbone_3.JPG",
         scores: [
             1,
             1,
@@ -26,8 +26,8 @@ const friends = [
         ]
     },
     {
-        name: "Bo Jangles",
-        photo: "xx",
+        name: "Bill Bojangles",
+        photo: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Bill_Robinson.jpg",
         scores: [
             2,
             3,
